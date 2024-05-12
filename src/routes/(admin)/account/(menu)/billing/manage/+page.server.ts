@@ -32,10 +32,7 @@ export const load: PageServerLoad = async ({
     })
     portalLink = portalSession?.url
   } catch (e) {
-    error(
-            500,
-            "Unknown error (PSE). If issue persists, please contact us.",
-    )
+    error(500, "Unknown error (PSE). If issue persists, please contact us.")
   }
 
   redirect(303, portalLink ?? "/account/billing")

@@ -57,10 +57,7 @@ export const load: PageServerLoad = async ({
     })
     checkoutUrl = stripeSession.url
   } catch (e) {
-    error(
-            500,
-            "Unknown Error (SSE): If issue persists please contact us.",
-    )
+    error(500, "Unknown Error (SSE): If issue persists please contact us.")
   }
 
   redirect(303, checkoutUrl ?? "/pricing")
