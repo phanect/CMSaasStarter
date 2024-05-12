@@ -4,6 +4,7 @@
     WebsiteBaseUrl,
     WebsiteDescription,
   } from "./../../config"
+  import T from "$lib/translate.svelte"
 
   const ldJson = {
     "@context": "https://schema.org",
@@ -258,7 +259,7 @@
           href="https://github.com/CriticalMoments/CMSaasStarter/tree/main#saas-starter"
         >
           <button class="btn btn-outline btn-primary btn-sm px-6 mt-3 mx-2"
-            >Read the Docs</button
+            ><T k="Read the Docs" /></button
           >
         </a>
       </div>
