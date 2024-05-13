@@ -13,4 +13,5 @@ vite.config.ts.timestamp-*
 /supabase/.branches
 /supabase/.temp
 
+/supabase/types.d.ts
 /supabase-env.tmp.json

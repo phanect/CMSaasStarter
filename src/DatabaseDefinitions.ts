@@ -1,93 +1,140 @@
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[]
+import type { MergeDeep } from "type-fest"
+import type { Database as DatabaseOriginal } from "../supabase/types"
 
-export interface Database {
-  public: {
-    Tables: {
-      contact_requests: {
-        Row: {
-          company_name: string | null
-          email: string | null
-          first_name: string | null
-          id: string
-          last_name: string | null
-          message_body: string | null
-          phone: string | null
-          updated_at: Date | null
+export type Database = MergeDeep<
+  DatabaseOriginal,
+  {
+    public: {
+      Tables: {
+        contact_requests: {
+          Row: {
+            updated_at: Date | null
+          }
+          Insert: {
+            updated_at?: Date | null
+          }
+          Update: {
+            updated_at?: Date | null
+          }
         }
-        Insert: {
-          company_name?: string | null
-          email?: string | null
-          first_name?: string | null
-          id?: string
-          last_name?: string | null
-          message_body?: string | null
-          phone?: string | null
-          updated_at?: Date | null
+        profiles: {
+          Row: {
+            updated_at: Date | null
+          }
+          Insert: {
+            updated_at?: Date | null
+          }
+          Update: {
+            updated_at?: Date | null
+          }
         }
-        Update: {
-          company_name?: string | null
-          email?: string | null
-          first_name?: string | null
-          id?: string
-          last_name?: string | null
-          message_body?: string | null
-          phone?: string | null
-          updated_at?: Date | null
+        stripe_customers: {
+          Row: {
+            updated_at: Date | null
+          }
+          Insert: {
+            updated_at?: Date | null
+          }
+          Update: {
+            updated_at?: Date | null
+          }
         }
-        Relationships: []
-      }
-      profiles: {
-        Row: {
-          avatar_url: string | null
-          full_name: string | null
-          id: string
-          updated_at: string | null
-          company_name: string | null
-          website: string | null
-        }
-        Insert: {
-          avatar_url?: string | null
-          full_name?: string | null
-          id: string
-          updated_at?: Date | null
-          company_name?: string | null
-          website?: string | null
-        }
-        Update: {
-          avatar_url?: string | null
-          full_name?: string | null
-          id?: string
-          updated_at?: string | null
-          company_name?: string | null
-          website?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "profiles_id_fkey"
-            columns: ["id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
       }
     }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      [_ in never]: never
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
+    storage: {
+      Tables: {
+        buckets: {
+          Row: {
+            created_at: Date | null
+            updated_at: Date | null
+          }
+          Insert: {
+            created_at?: Date | null
+            updated_at?: Date | null
+          }
+          Update: {
+            created_at?: Date | null
+            updated_at?: Date | null
+          }
+        }
+        migrations: {
+          Row: {
+            executed_at: Date | null
+          }
+          Insert: {
+            executed_at?: Date | null
+          }
+          Update: {
+            executed_at?: Date | null
+          }
+        }
+        objects: {
+          Row: {
+            created_at: Date | null
+            last_accessed_at: Date | null
+            updated_at: Date | null
+          }
+          Insert: {
+            created_at?: Date | null
+            last_accessed_at?: Date | null
+            updated_at?: Date | null
+          }
+          Update: {
+            created_at?: Date | null
+            last_accessed_at?: Date | null
+            updated_at?: Date | null
+          }
+        }
+        s3_multipart_uploads: {
+          Row: {
+            created_at: Date
+          }
+          Insert: {
+            created_at?: Date
+          }
+          Update: {
+            created_at?: Date
+          }
+        }
+        s3_multipart_uploads_parts: {
+          Row: {
+            created_at: Date
+          }
+          Insert: {
+            created_at?: Date
+          }
+          Update: {
+            created_at?: Date
+          }
+        }
+      }
+      Functions: {
+        list_multipart_uploads_with_delimiter: {
+          Returns: {
+            created_at: Date
+          }[]
+        }
+        list_objects_with_delimiter: {
+          Returns: {
+            updated_at: Date
+          }[]
+        }
+        search: {
+          Returns: {
+            created_at: Date
+            updated_at: Date
+            last_accessed_at: Date
+          }[]
+        }
+      }
     }
   }
-}
+>
+
+export type {
+  Json,
+  Tables,
+  TablesInsert,
+  TablesUpdate,
+  Enums,
+} from "../supabase/types"

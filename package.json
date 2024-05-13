@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "npm run dev:db && npm run dev:app",
     "dev:app": "vite dev",
-    "dev:db": "supabase start && npm run dev:db:env",
+    "dev:db": "supabase start && npm run dev:db:env && npm run dev:db:typegen",
     "dev:db:env": "supabase status --output=json > supabase-env.tmp.json && esno ./scripts/dev-db-env.ts",
+    "dev:db:typegen": "supabase gen types typescript --local > ./supabase/types.d.ts",
     "stop": "supabase stop",
     "build": "vite build",
     "preview": "vite preview",
@@ -16,7 +17,8 @@
     "test_run": "vitest run",
     "lint": "eslint .",
     "format": "prettier --write --plugin prettier-plugin-svelte ./",
-    "format_check": "prettier --check --plugin prettier-plugin-svelte ./"
+    "format_check": "prettier --check --plugin prettier-plugin-svelte ./",
+    "postinstall": "npm run dev:db"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^2.0.0",
@@ -38,6 +40,7 @@
     "svelte": "^4.0.5",
     "svelte-check": "^3.4.3",
     "tailwindcss": "^3.4.1",
+    "type-fest": "^4.18.2",
     "typescript": "^5.0.0",
     "vite": "^4.4.2",
     "vitest": "^0.34.0"
